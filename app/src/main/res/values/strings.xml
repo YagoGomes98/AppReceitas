@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AppReceitas</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Minhas receitas</string>
+    <string name="title_notifications">Perfil</string>
+    <string name="favorites">Favoritos</string>
+</resources>
