@@ -47,12 +47,12 @@ public class UsuarioDAO {
         return null;
     }
         public static class Config {
-            public static final String TABLE_NAME = "users";
+            public static final String TABLE_NAME = "usuarios";
             public static final String KEY_ID = "id";
-            public static final String KEY_USERNAME = "username";
-            public static final String KEY_FULLNAME = "fullname";
+            public static final String KEY_USERNAME = "nomeUsuario";
+            public static final String KEY_FULLNAME = "nomeCompleto";
             public static final String KEY_EMAIL = "email";
-            public static final String KEY_PASSWORD = "password";
+            public static final String KEY_PASSWORD = "senha";
 
             public static final String CREATE_TABLE_STATEMENT =
                     "CREATE TABLE " + TABLE_NAME + " (" +
