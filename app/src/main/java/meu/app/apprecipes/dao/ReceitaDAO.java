@@ -1,4 +1,5 @@
 package meu.app.apprecipes.dao;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +11,7 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.Suppress;
 import meu.app.apprecipes.models.Receita;
 
 public class ReceitaDAO {
@@ -85,6 +87,7 @@ public class ReceitaDAO {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
+
     public void update(Receita receita) {
         ingredienteDAO.deleteAllByRecipeId(receita.getId());
         auxiliarDAO.deleteAllByRecipeId(receita.getId());
