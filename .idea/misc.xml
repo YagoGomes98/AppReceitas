@@ -3,20 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AppRecipes/app/src/main/res/drawable-v24/circle.xml" value="0.2985" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.23560910307898258" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout-w936dp/activity_login.xml" value="0.27049180327868855" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_authentication.xml" value="0.17395833333333333" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_create_recipe.xml" value="0.358695652173913" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_detail.xml" value="0.17395833333333333" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_login.xml" value="0.23772609819121446" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_main.xml" value="0.17395833333333333" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_register.xml" value="0.17395833333333333" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_update_recipe.xml" value="0.17395833333333333" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_upload__recipe.xml" value="0.17395833333333333" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/activity_view_recipe.xml" value="0.358695652173913" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/app_bar_layout.xml" value="0.358695652173913" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/auxiliar_item_nao_editavel.xml" value="0.358695652173913" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/auxiliar_item_row.xml" value="0.358695652173913" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/fragment_dashboard.xml" value="0.17395833333333333" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/fragment_favorites.xml" value="0.17395833333333333" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/fragment_home.xml" value="0.17395833333333333" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/fragment_notifications.xml" value="0.17395833333333333" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/fragment_view_directions.xml" value="0.358695652173913" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/ingrediente_item_row.xml" value="0.358695652173913" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/ingrediente_item_row_nao_editavel.xml" value="0.358695652173913" />
+        <entry key="..\:/AppRecipes/app/src/main/res/layout/recipe_item_row.xml" value="0.358695652173913" />
         <entry key="..\:/AppRecipes/app/src/main/res/layout/recycler_row_item.xml" value="0.17395833333333333" />
+        <entry key="..\:/AppRecipes/app/src/main/res/menu/grid_popup_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/AppRecipes/app/src/main/res/menu/main_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/AppRecipes/app/src/main/res/menu/view_recipe_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

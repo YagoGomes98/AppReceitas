@@ -16,31 +16,38 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.elmargomez.typer.Font;
-import com.elmargomez.typer.Typer;
+
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import R;
 import adapters.DatabaseAdapter;
+
 import adapters.MainPagerAdapter;
 import meu.app.apprecipes.R;
 import meu.app.apprecipes.adapters.AdapterBanco;
+import meu.app.apprecipes.adapters.AdapterPaginaPrincipal;
+import meu.app.apprecipes.models.Receita;
+import meu.app.apprecipes.ui.login.fragmentos.CategorizedFragment;
+import meu.app.apprecipes.utils.PreferenciaUsuario;
+import meu.app.apprecipes.utils.Resultados;
 import models.Recipe;
 import ui.fragments.CategorizedFragment;
 import utils.ActivityTransition;
 import utils.ResultCodes;
 import utils.UserPreferences;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends ToolbarActivity implements CategorizedFragment.CategorizedFragmentListener  {
 
     private static final int REQUEST_ADD_RECIPE = 1;
     private static final int REQUEST_VIEW_RECIPE = 2;
     private AdapterBanco databaseAdapter;
-    private MainPagerAdapter mAdapter;
+    private AdapterPaginaPrincipal mAdapter;
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
@@ -70,16 +77,13 @@ public class MainActivity extends AppCompatActivity  {
         second = findViewById(R.id.second);
         mViewSwitcher = findViewById(R.id.switcher);
         mTabLayout.bringToFront();
-        mAdapter = new MainPagerAdapter(getSupportFragmentManager());
+        mAdapter = new AdapterPaginaPrincipal(getSupportFragmentManager());
 
-        Typeface font = Typer.set(this).getFont(Font.ROBOTO_MEDIUM);
-        mCollapsingToolbarLayout.setCollapsedTitleTypeface(font);
-        mCollapsingToolbarLayout.setExpandedTitleTypeface(font);
 
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        mTabLayout.setTabsFromPagerAdapter(mAdapter);
+
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -134,12 +138,12 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.new_recipe:
-                Intent intent = new Intent(this, CreateRecipeActivity.class);
+                Intent intent = new Intent(this, CriarReceitaActivity.class);
                 intent.putExtra("category", getCurrentlyDisplayedCategory());
                 startActivityForResult(intent, REQUEST_ADD_RECIPE);
                 break;
             case R.id.sign_out:
-                UserPreferences.clear(this);
+                PreferenciaUsuario.clear(this);
                 navigateToLogin();
                 break;
         }
@@ -149,30 +153,31 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_ADD_RECIPE:
                 switch (resultCode) {
-                    case ResultCodes.RECIPE_ADDED:
-                        Snackbar.make(getWindow().getDecorView(), "Recipe added.", Snackbar.LENGTH_LONG)
+                    case Resultados.RECIPE_ADDED:
+                        Snackbar.make(getWindow().getDecorView(), "Receita adicionada.", Snackbar.LENGTH_LONG)
                                 .show();
                         break;
-                    case ResultCodes.RECIPE_EDITED:
-                        Snackbar.make(getWindow().getDecorView(), "Recipe modified.", Snackbar.LENGTH_LONG)
+                    case Resultados.RECIPE_EDITED:
+                        Snackbar.make(getWindow().getDecorView(), "Receita modificada.", Snackbar.LENGTH_LONG)
                                 .show();
                         break;
                 }
                 break;
             case REQUEST_VIEW_RECIPE:
                 switch (resultCode) {
-                    case ResultCodes.RECIPE_SHOULD_BE_EDITED:
-                        Recipe recipe = data.getParcelableExtra("recipe");
-                        Intent intent = new Intent(this, CreateRecipeActivity.class);
+                    case Resultados.RECIPE_SHOULD_BE_EDITED:
+                        Receita recipe = data.getParcelableExtra("recipe");
+                        Intent intent = new Intent(this, CriarReceitaActivity.class);
                         intent.putExtra("recipe", recipe);
                         intent.putExtra("category", recipe.getCategory());
                         intent.putExtra("isUpdating", true);
                         startActivityForResult(intent, REQUEST_ADD_RECIPE);
                         break;
-                    case ResultCodes.RECIPE_SHOULD_BE_DELETED:
+                    case Resultados.RECIPE_SHOULD_BE_DELETED:
                         long recipeId = data.getLongExtra("recipeId", -1);
                         if (recipeId != -1) {
                             onDeleteRecipe(recipeId);
@@ -195,8 +200,8 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     @Override
-    public void onShowRecipe(Recipe recipe, Pair<View, String>[] pairs) {
-        Intent intent = new Intent(this, ViewRecipeActivity.class);
+    public void onShowRecipe(Receita recipe, Pair<View, String>[] pairs) {
+        Intent intent = new Intent(this, VerReceitaActivity.class);
         intent.putExtra("recipe", recipe);
 
         ActivityTransition.startActivityForResultWithSharedElement(
@@ -204,17 +209,18 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     @Override
-    public void onEditRecipe(Recipe recipe) {
-        Intent intent = new Intent(this, CreateRecipeActivity.class);
+    public void onEditRecipe(Receita recipe) {
+        Intent intent = new Intent(this, CriarReceitaActivity.class);
         intent.putExtra("recipe", recipe);
         intent.putExtra("category", getCurrentlyDisplayedCategory());
         intent.putExtra("isUpdating", true);
         startActivityForResult(intent, REQUEST_ADD_RECIPE);
+        registerForActivityResult(REQUEST_ADD_RECIPE, intent);
     }
 
     @Override
     public void onDeleteRecipe(long recipeId) {
         databaseAdapter.deleteRecipe(recipeId);
-        Snackbar.make(getWindow().getDecorView(), "Recipe deleted.", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getWindow().getDecorView(), "Receita deletada.", Snackbar.LENGTH_LONG).show();
     }
 }
